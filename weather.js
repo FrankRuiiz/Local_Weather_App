@@ -1,8 +1,9 @@
 
 
-var myLoc = $('#loc');
+var weather_info = $('#weather_info');
 var latitude;
 var longitude;
+var temperature = null;
 
 var msg = 'Sorry, we were unable to get your location';
 
@@ -11,7 +12,7 @@ function getCoords() {
         navigator.geolocation.getCurrentPosition(locSuccess, locFail);
     }
     else {
-        myLoc.textContent = msg;
+        weather_info.empty().text(msg);
     }
 }
 
@@ -31,24 +32,20 @@ function locFail(msg) {
 
 
 function displayWeather(data) {
-    var icon_code = data.weather[0].icon;
-    var temperature = data.main.temp;
-
-
-
-
-    $('#conditions').text(data.weather[0].description);
-    $('#winds .direction').text(data.wind.deg);
-    $('#winds .speed').text(data.wind.speed);
-    $('#weather span:nth-child(2)').text(temperature);
-
-    var icon_img = $('<img>', {
-        src: 'http://openweathermap.org/img/w/' + icon_code + '.png'
-    });
+    temperature = data.main.temp;
+    var icon_code = data.weather[0].icon,
+        wind_speed = data.wind.speed,
+        wind_direction = data.wind.deg,
+        conditions_desc = data.weather[0].description,
+        icon_img = $('<img>', {
+            src: 'http://openweathermap.org/img/w/' + icon_code + '.png'
+        });
 
     $('.icon').append(icon_img);
-
-
+    $('#weather .temperature').text(convertKelvToFahr(temperature));
+    $('#conditions').text(conditions_desc);
+    $('#winds .direction').text(wind_direction);
+    $('#winds .speed').text(wind_speed);
 }
 
 function displayLocation(location) {
@@ -88,7 +85,38 @@ function getWeather() {
 }
 
 
+function convertKelvToFahr(kelvin) {
+    return Math.round(1.8 * (parseInt(kelvin) - 273) + 32) + ' ' + 'F';
+}
+
+function convertKelvToCelc(kelvin) {
+    return parseInt(kelvin) - 273 + ' ' + 'C';
+}
+
+
+function toggleTempMetric() {
+    var $temp = $('.temperature');
+
+    if($temp.hasClass('F')) {
+        $temp.removeClass('F');
+        $temp.text(convertKelvToCelc(temperature));
+        $temp.addClass('C');
+    }
+    else {
+        $temp.removeClass('C');
+        $temp.text(convertKelvToFahr(temperature));
+        $temp.addClass('F');
+    }
+}
+
+
+
+
 
 $(document).ready(function() {
   getCoords();
+    
+   $('#toggle_temp').on('click', function() {
+       toggleTempMetric();
+   }) ;
 });
