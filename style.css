@@ -50,6 +50,11 @@
 }
 
 #weather .temperature {
-    font-size: 4vmin;
+    font-size: 3.8vmin;
     font-weight: bold;
 }
+
+#conditions, .direction, .speed {
+    font-size: 4vmin;
+}
+
