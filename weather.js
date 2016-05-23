@@ -31,7 +31,22 @@ function locFail(msg) {
 
 
 function displayWeather(data) {
+    $('#conditions').text(data.weather[0].description);
+    $('#winds .direction').text(data.wind.deg);
+    $('#winds .speed').text(data.wind.speed);
+    $('#temperature h2').text(data.main.temp);
+    var icon_code = data.weather[0].icon;
+    var icon_img = $('<img>', {
+        src: 'http://openweathermap.org/img/w/' + icon_code + '.png'
+    });
 
+    $('.icon').append(icon_img);
+
+
+}
+
+function displayLocation(location) {
+    $('#location').text(location);
 }
 
 
@@ -41,8 +56,8 @@ function getCoordsDetails() {
         url: 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' + latitude + ',' + longitude + '&key=' + mapsKey,
         method: 'POST',
         success: function(response) {
-            console.log('in get coords details success function', response);
-            //displayLocation(response);
+            var location = response.results[2].formatted_address;
+            displayLocation(location);
         }
     });
 }
