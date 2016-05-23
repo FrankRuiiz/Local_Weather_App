@@ -1,0 +1,40 @@
+.container {
+    height: 100vh;
+    background-color: #EEE;
+}
+
+/*Header*/
+
+#header {
+    height: 20%;
+}
+
+#header div {
+    height: 100%;
+    position: relative;
+    padding: 0;
+}
+
+#header div h1 {
+    font-size: 7vmin;
+    width: 100%;
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+/*Location*/
+#location h2 {
+    font-size: 5vmin;
+}
+
+/*Temperature*/
+#temperature .icon img {
+    height: 10vmin;
+}
+
+#temperature span:nth-child(2) {
+    font-size: 3.5vmin;
+    font-weight: bold;
+}
