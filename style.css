@@ -24,17 +24,32 @@
     transform: translateY(-50%);
 }
 
+#weather_info {
+    margin: 0 auto;
+    max-width: 400px;
+    padding-top: 2em;
+}
+
 /*Location*/
 #location h2 {
     font-size: 5vmin;
 }
 
-/*Temperature*/
-#temperature .icon img {
-    height: 10vmin;
+/*weather*/
+#weather {
+    padding: 2em 0 2em 0;
 }
 
-#temperature span:nth-child(2) {
-    font-size: 3.5vmin;
+#weather span {
+    padding: .5em;
+}
+
+#weather .icon img {
+    height: 15vmin;
+    max-height: 85px;
+}
+
+#weather .temperature {
+    font-size: 4vmin;
     font-weight: bold;
 }

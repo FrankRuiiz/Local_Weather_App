@@ -21,14 +21,25 @@
             </div>
         </div>
 
-        <div class="row">
+        <div id="weather_info" class="row">
             <div class="col-md-12">
                 <!--current location-->
                 <div id="location"></div>
                 <!--current temperature-->
-                <div id="temperature" class="text-center">
+                <div id="weather" class="text-center">
                     <span class="icon"></span>
-                    <span></span>
+                    <span class="temperature"></span>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 text-center">
+                        <div id="conditions"></div>
+                    </div>
+                    <div class="col-md-6 text-center">
+                        <div id="winds">
+                            <span class="direction"></span>
+                            <span class="speed"></span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -43,8 +54,8 @@
 
 
 <!--<div id="location"></div>-->
-<div id="conditions"></div>
-<div id="winds"><span class="direction"></span><span class="speed"></span></div>
+
+
 
 <script src="weather.js" type="text/javascript"></script>
 </body>

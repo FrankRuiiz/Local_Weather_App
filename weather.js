@@ -40,7 +40,7 @@ function displayWeather(data) {
     $('#conditions').text(data.weather[0].description);
     $('#winds .direction').text(data.wind.deg);
     $('#winds .speed').text(data.wind.speed);
-    $('#temperature span:nth-child(2)').text(temperature);
+    $('#weather span:nth-child(2)').text(temperature);
 
     var icon_img = $('<img>', {
         src: 'http://openweathermap.org/img/w/' + icon_code + '.png'
