@@ -44,8 +44,8 @@ function displayWeather(data) {
     $('.icon').append(icon_img);
     $('#weather .temperature').text(convertKelvToFahr(temperature));
     $('#conditions').text(conditions_desc);
-    $('#winds .direction').text(wind_direction);
-    $('#winds .speed').text(wind_speed);
+    $('#winds .direction').text(windDirection(wind_direction));
+    $('#winds .speed').text(wind_speed + ' ' + 'knots');
 }
 
 function displayLocation(location) {
@@ -85,6 +85,8 @@ function getWeather() {
 }
 
 
+
+// Temperature functions
 function convertKelvToFahr(kelvin) {
     return Math.round(1.8 * (parseInt(kelvin) - 273) + 32) + ' ' + 'F';
 }
@@ -109,7 +111,12 @@ function toggleTempMetric() {
     }
 }
 
-
+// wind direction function
+function windDirection(deg) {
+    var val = parseInt((deg /22.5) + 0.5),
+        dirArray = ['N','NNE','NE','ENE','E','ESE', 'SE', 'SSE','S','SSW','SW','WSW','W','WNW','NW','NNW'];
+    return dirArray[val % 16];
+}
 
 
 
