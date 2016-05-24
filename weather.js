@@ -65,7 +65,11 @@ function getCoordsDetails() {
         method: 'POST',
         success: function(response) {
             console.log(response);
-            var location = response.results[1].formatted_address;
+            var loc_city = response.results[0].address_components[3].long_name;
+            var loc_state = response.results[0].address_components[5].short_name;
+            //console.log('loc_city ', loc_city);
+            //console.log('state_city ', loc_state);
+            var location = loc_city + ', ' + loc_state;
             displayLocation(location);
         }
     });
@@ -124,9 +128,24 @@ function convertWindDirection(deg) {
 function updateBackground(cond) {
     console.log(cond);
     var $appBg = $('#background');
-    if(cond === 'broken clouds' || cond === 'scattered clouds' || cond === 'few clouds') {
+    if (cond === 'clear sky') {
+        $appBg.addClass('clear_bg');
+    }
+    else if (cond === 'broken clouds' || cond === 'scattered clouds' || cond === 'few clouds') {
         $appBg.addClass('cloudy_bg');
-    } 
+    }
+    else if (cond === 'shower rain' || cond === 'rain') {
+        $appBg.addClass('rain_bg');
+    }
+    else if (cond === 'thunderstorm') {
+        $appBg.addClass('thunderstorm_bg');
+    }
+    else if (cond === 'snow') {
+        $appBg.addClass('snow_bg');
+    }
+    else if (cond === 'mist') {
+        $appBg.addClass('mist_bg');
+    }
 }
 
 
