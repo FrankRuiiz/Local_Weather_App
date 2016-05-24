@@ -4,6 +4,7 @@ var weather_info = $('#weather_info');
 var latitude;
 var longitude;
 var temperature = null;
+var conditions_desc = null;
 
 var msg = 'Sorry, we were unable to get your location';
 
@@ -23,6 +24,7 @@ function locSuccess(position) {
     console.log(longitude);
     getCoordsDetails();
     getWeather();
+    updateBackground(conditions_desc);
 }
 
 function locFail(msg) {
@@ -33,10 +35,10 @@ function locFail(msg) {
 
 function displayWeather(data) {
     temperature = data.main.temp;
+    conditions_desc = data.weather[0].description;
     var icon_code = data.weather[0].icon,
         wind_speed = data.wind.speed,
         wind_direction = data.wind.deg,
-        conditions_desc = data.weather[0].description,
         icon_img = $('<img>', {
             src: 'http://openweathermap.org/img/w/' + icon_code + '.png'
         });
@@ -44,7 +46,7 @@ function displayWeather(data) {
     $('.icon').append(icon_img);
     $('#weather .temperature').text(convertKelvToFahr(temperature));
     $('#conditions').text(conditions_desc);
-    $('#winds .direction').text(windDirection(wind_direction));
+    $('#winds .direction').text(convertWindDirection(wind_direction));
     $('#winds .speed').text(wind_speed + ' ' + 'knots');
 }
 
@@ -112,10 +114,18 @@ function toggleTempMetric() {
 }
 
 // wind direction function
-function windDirection(deg) {
+function convertWindDirection(deg) {
     var val = parseInt((deg /22.5) + 0.5),
         dirArray = ['N','NNE','NE','ENE','E','ESE', 'SE', 'SSE','S','SSW','SW','WSW','W','WNW','NW','NNW'];
     return dirArray[val % 16];
+}
+
+
+function updateBackground(cond) {
+    var $appBg = $('#background');
+    if(cond === 'broken clouds' || cond === 'scattered clouds' || cond === 'few clouds') {
+        $appBg.addClass('cloudy_bg');
+    } 
 }
 
 

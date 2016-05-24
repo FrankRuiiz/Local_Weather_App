@@ -3,6 +3,12 @@
     background-color: #EEE;
 }
 
+/*Background Classes*/
+.cloudy_bg {
+    background: url('images/cloudy.jpg');
+}
+
+
 /*Header*/
 
 #header {
