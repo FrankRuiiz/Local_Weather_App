@@ -24,7 +24,6 @@ function locSuccess(position) {
     console.log(longitude);
     getCoordsDetails();
     getWeather();
-    updateBackground(conditions_desc);
 }
 
 function locFail(msg) {
@@ -82,6 +81,7 @@ function getWeather() {
         success: function(response) {
             console.log('in success function', response);
             displayWeather(response);
+            updateBackground(conditions_desc);
         }
     });
 }
@@ -122,6 +122,7 @@ function convertWindDirection(deg) {
 
 
 function updateBackground(cond) {
+    console.log(cond);
     var $appBg = $('#background');
     if(cond === 'broken clouds' || cond === 'scattered clouds' || cond === 'few clouds') {
         $appBg.addClass('cloudy_bg');
