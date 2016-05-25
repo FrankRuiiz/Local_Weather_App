@@ -1,10 +1,14 @@
+body {
+    color: gainsboro;
+}
+
 .container {
     height: 100vh;
 }
 
 .transparent {
-    background:#7f7f7f;
-    background:rgba(0,0,0,0.5);
+    background: #7f7f7f;
+    background: rgba(0, 0, 0, 0.5);
 }
 
 /*Background Classes*/
@@ -13,8 +17,8 @@
 }
 
 .clear_bg {
-     background: url('images/clear.jpg') no-repeat center/cover;
- }
+    background: url('images/clear.jpg') no-repeat center/cover;
+}
 
 .rainy_bg {
     background: url('images/rainy.jpg') no-repeat center/cover;
@@ -32,7 +36,6 @@
     background: url('images/misty.jpg') no-repeat center/cover;
 }
 
-
 /*Header*/
 
 #header {
@@ -48,61 +51,58 @@
 #header div h1 {
     font-size: 7vmin;
     font-weight: 900;
-    color: gainsboro;
     width: 100%;
     margin: 0;
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    text-shadow: 0 1px 0 hsl(174,5%,80%),
-    0 2px 0 hsl(174,5%,75%),
-    0 3px 0 hsl(174,5%,70%),
-    0 4px 0 hsl(174,5%,66%),
-    0 5px 0 hsl(174,5%,64%),
-    0 6px 0 hsl(174,5%,62%),
-    0 7px 0 hsl(174,5%,61%),
-    0 8px 0 hsl(174,5%,60%),
-
-    0 0 5px rgba(0,0,0,.05),
-    0 1px 3px rgba(0,0,0,.2),
-    0 3px 5px rgba(0,0,0,.2),
-    0 5px 10px rgba(0,0,0,.2),
-    0 10px 10px rgba(0,0,0,.2),
-    0 20px 20px rgba(0,0,0,.3);
+    text-shadow: 0 1px 0 hsl(174, 5%, 80%),
+    0 2px 0 hsl(174, 5%, 75%),
+    0 3px 0 hsl(174, 5%, 70%),
+    0 4px 0 hsl(174, 5%, 66%),
+    0 5px 0 hsl(174, 5%, 64%),
+    0 6px 0 hsl(174, 5%, 62%),
+    0 7px 0 hsl(174, 5%, 61%),
+    0 8px 0 hsl(174, 5%, 60%),
+    0 0 5px rgba(0, 0, 0, .05),
+    0 1px 3px rgba(0, 0, 0, .2),
+    0 3px 5px rgba(0, 0, 0, .2),
+    0 5px 10px rgba(0, 0, 0, .2),
+    0 10px 10px rgba(0, 0, 0, .2),
+    0 20px 20px rgba(0, 0, 0, .3);
 }
 
 #weather_info {
-    margin: 0 auto;
-    max-width: 450px;
-    padding-top: 2em;
-    color: gainsboro;
+    margin: 1em auto 0;
+    max-width: 800px;
+    padding: 3em;
+    border-radius: 15px;
 }
 
-/*Location*/
+#weather_info > div > div {
+    padding: 1em 0;
+}
+
 #location h2 {
-    font-size: 5vmin;
-}
-
-/*weather*/
-#weather {
-    padding: 2em 0 2em 0;
-}
-
-#weather span {
-    padding: .5em;
-}
-
-#weather .icon img {
-    height: 15vmin;
-    max-height: 85px;
+    font-size: 5.5vmin;
+    font-weight: 700;
 }
 
 #weather .temperature {
-    font-size: 3.8vmin;
-    font-weight: bold;
+    font-weight: 900;
+    font-size: 7vmin;
+    margin-left: 10px;
 }
 
-#conditions, .direction, .speed {
-    font-size: 4vmin;
+#weather .icon {
+    margin-right: 10px;
+}
+
+#conditions, #winds {
+    font-size: 3vmin;
+}
+
+#winds span {
+    margin-left: 15px;
 }
 

@@ -44,7 +44,7 @@ function displayWeather(data) {
 
     $('.icon').append(icon_img);
     $('#weather .temperature').text(convertKelvToFahr(temperature));
-    $('#conditions').text(conditions_desc);
+    $('#conditions').text('Conditoins: ' + conditions_desc);
     $('#winds .direction').text(convertWindDirection(wind_direction));
     $('#winds .speed').text(wind_speed + ' ' + 'knots');
 }
@@ -131,7 +131,7 @@ function updateBackground(cond) {
     if (cond === 'clear sky') {
         $appBg.addClass('clear_bg');
     }
-    else if (cond === 'broken clouds' || cond === 'scattered clouds' || cond === 'few clouds') {
+    else if (cond === 'broken clouds' || cond === 'scattered clouds' || cond === 'few clouds' || cond === 'overcast clouds') {
         $appBg.addClass('cloudy_bg');
     }
     else if (cond === 'shower rain' || cond === 'rain') {
