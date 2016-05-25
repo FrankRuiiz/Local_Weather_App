@@ -2,9 +2,34 @@
     height: 100vh;
 }
 
+.transparent {
+    background:#7f7f7f;
+    background:rgba(0,0,0,0.5);
+}
+
 /*Background Classes*/
 .cloudy_bg {
     background: url('images/cloudy.jpg') no-repeat center/cover;
+}
+
+.clear_bg {
+     background: url('images/clear.jpg') no-repeat center/cover;
+ }
+
+.rainy_bg {
+    background: url('images/rainy.jpg') no-repeat center/cover;
+}
+
+.stormy_bg {
+    background: url('images/stormy.jpg') no-repeat center/cover;
+}
+
+.snowy_bg {
+    background: url('images/snowy.jpg') no-repeat center/cover;
+}
+
+.misty_bg {
+    background: url('images/misty.jpg') no-repeat center/cover;
 }
 
 
@@ -22,17 +47,35 @@
 
 #header div h1 {
     font-size: 7vmin;
+    font-weight: 900;
+    color: gainsboro;
     width: 100%;
     margin: 0;
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
+    text-shadow: 0 1px 0 hsl(174,5%,80%),
+    0 2px 0 hsl(174,5%,75%),
+    0 3px 0 hsl(174,5%,70%),
+    0 4px 0 hsl(174,5%,66%),
+    0 5px 0 hsl(174,5%,64%),
+    0 6px 0 hsl(174,5%,62%),
+    0 7px 0 hsl(174,5%,61%),
+    0 8px 0 hsl(174,5%,60%),
+
+    0 0 5px rgba(0,0,0,.05),
+    0 1px 3px rgba(0,0,0,.2),
+    0 3px 5px rgba(0,0,0,.2),
+    0 5px 10px rgba(0,0,0,.2),
+    0 10px 10px rgba(0,0,0,.2),
+    0 20px 20px rgba(0,0,0,.3);
 }
 
 #weather_info {
     margin: 0 auto;
     max-width: 450px;
     padding-top: 2em;
+    color: gainsboro;
 }
 
 /*Location*/

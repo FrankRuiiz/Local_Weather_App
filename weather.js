@@ -138,13 +138,13 @@ function updateBackground(cond) {
         $appBg.addClass('rain_bg');
     }
     else if (cond === 'thunderstorm') {
-        $appBg.addClass('thunderstorm_bg');
+        $appBg.addClass('stormy_bg');
     }
     else if (cond === 'snow') {
-        $appBg.addClass('snow_bg');
+        $appBg.addClass('snowy_bg');
     }
     else if (cond === 'mist') {
-        $appBg.addClass('mist_bg');
+        $appBg.addClass('misty_bg');
     }
 }
 
