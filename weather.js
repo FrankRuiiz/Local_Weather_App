@@ -1,5 +1,3 @@
-
-
 var weather_info = $('#weather_info');
 var latitude;
 var longitude;
@@ -9,7 +7,7 @@ var conditions_desc = null;
 var msg = 'Sorry, we were unable to get your location';
 
 function getCoords() {
-    if( Modernizr.geolocation ) {
+    if (Modernizr.geolocation) {
         navigator.geolocation.getCurrentPosition(locSuccess, locFail);
     }
     else {
@@ -31,7 +29,6 @@ function locFail(msg) {
 }
 
 
-
 function displayWeather(data) {
     temperature = data.main.temp;
     conditions_desc = data.weather[0].description;
@@ -44,7 +41,7 @@ function displayWeather(data) {
 
     $('.icon').append(icon_img);
     $('#weather .temperature').text(convertKelvToFahr(temperature));
-    $('#conditions').text('Conditoins: ' + conditions_desc);
+    $('#conditions').text('Conditions: ' + conditions_desc);
     $('#winds .direction').text(convertWindDirection(wind_direction));
     $('#winds .speed').text(wind_speed + ' ' + 'knots');
 }
@@ -63,7 +60,7 @@ function getCoordsDetails() {
     $.ajax({
         url: 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' + latitude + ',' + longitude + '&key=' + mapsKey,
         method: 'POST',
-        success: function(response) {
+        success: function (response) {
             console.log(response);
             var loc_city = response.results[0].address_components[3].long_name;
             var loc_state = response.results[0].address_components[5].short_name;
@@ -76,20 +73,18 @@ function getCoordsDetails() {
 }
 
 
-
 function getWeather() {
     var weatherKey = '05f04e04a675ecee84735203175cede4';
     $.ajax({
         url: 'http://api.openweathermap.org/data/2.5/weather?lat=' + latitude + '&lon=' + longitude + '&APPID=' + weatherKey,
         method: 'POST',
-        success: function(response) {
+        success: function (response) {
             console.log('in success function', response);
             displayWeather(response);
             updateBackground(conditions_desc);
         }
     });
 }
-
 
 
 // Temperature functions
@@ -105,7 +100,7 @@ function convertKelvToCelc(kelvin) {
 function toggleTempMetric() {
     var $temp = $('.temperature');
 
-    if($temp.hasClass('F')) {
+    if ($temp.hasClass('F')) {
         $temp.removeClass('F');
         $temp.text(convertKelvToCelc(temperature));
         $temp.addClass('C');
@@ -119,8 +114,8 @@ function toggleTempMetric() {
 
 // wind direction function
 function convertWindDirection(deg) {
-    var val = parseInt((deg /22.5) + 0.5),
-        dirArray = ['N','NNE','NE','ENE','E','ESE', 'SE', 'SSE','S','SSW','SW','WSW','W','WNW','NW','NNW'];
+    var val = parseInt((deg / 22.5) + 0.5),
+        dirArray = ['N', 'NNE', 'NE', 'ENE', 'E', 'ESE', 'SE', 'SSE', 'S', 'SSW', 'SW', 'WSW', 'W', 'WNW', 'NW', 'NNW'];
     return dirArray[val % 16];
 }
 
@@ -149,11 +144,10 @@ function updateBackground(cond) {
 }
 
 
+$(document).ready(function () {
+    getCoords();
 
-$(document).ready(function() {
-  getCoords();
-    
-   $('#toggle_temp').on('click', function() {
-       toggleTempMetric();
-   }) ;
+    $('#toggle_temp').on('click', function () {
+        toggleTempMetric();
+    });
 });
