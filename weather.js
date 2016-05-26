@@ -1,8 +1,9 @@
 
 
-var Local_Weather_app = function() {
+var Local_Weather_app = function(key) {
     var self = this;
-    this.weather_info = $('#weather_info');
+    this.weather_info = key;
+    console.log('this.weaterhinfo ', this.weather_info);
     this.latitude = null;
     this.longitude = null;
     this.temperature = null;
@@ -25,9 +26,9 @@ var Local_Weather_app = function() {
     };
 
     this.getWeather = function() {
-        var weatherKey = '05f04e04a675ecee84735203175cede4';
+        var key = self.weather_info;
         $.ajax({
-            url: 'http://api.openweathermap.org/data/2.5/weather?lat=' + self.latitude + '&lon=' + self.longitude + '&APPID=' + weatherKey,
+            url: 'http://api.openweathermap.org/data/2.5/weather?lat=' + self.latitude + '&lon=' + self.longitude + '&APPID=' + key,
             method: 'POST',
             success: function (response) {
                 console.log('in success function', response);
@@ -117,8 +118,12 @@ var Local_Weather_app = function() {
 };
 
 $(document).ready(function() {
-    var app = new Local_Weather_app();
-    app.init();
+    var key = null;
+    $.getJSON('config.json', function(data){
+        key = data.weatherAppKey;
+        var app = new Local_Weather_app(key);
+        app.init();
+    });
 
     $('#toggle_temp').on('click', function () {
         app.toggleTempMetric();
