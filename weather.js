@@ -1,18 +1,31 @@
-
-
+/**
+ * Local_Weather_App constructor function
+ * @param key
+ * @constructor
+ */
 var Local_Weather_app = function(key) {
+    /**
+     * variables to be used throughout the app
+     */
     var self = this;
-    this.weather_info = key;
-    console.log('this.weaterhinfo ', this.weather_info);
+    this.weather_api_key = null;
     this.latitude = null;
     this.longitude = null;
     this.temperature = null;
     this.conditions_desc = null;
 
-    this.init = function() {
+    /**
+     * gets the api key from a config json file and then calls the function to get the user's current location details
+     * @param key
+     */
+    this.init = function(key) {
+        this.weather_api_key = key;
         this.getCoordsDetails();
     };
 
+    /**
+     * gets location information from ipinfo.io, most importantly the latitude and longitude coords which are used in the weather api call
+     */
     this.getCoordsDetails = function() {
         $.getJSON('http://ipinfo.io', function(data){
             var loc_city = data.city;
@@ -25,19 +38,25 @@ var Local_Weather_app = function(key) {
         });
     };
 
+    /**
+     * call to openweathermap.org, where all current location data will come from
+     */
     this.getWeather = function() {
-        var key = self.weather_info;
+        var key = self.weather_api_key;
         $.ajax({
             url: 'http://api.openweathermap.org/data/2.5/weather?lat=' + self.latitude + '&lon=' + self.longitude + '&APPID=' + key,
             method: 'POST',
             success: function (response) {
-                console.log('in success function', response);
                 self.displayWeather(response);
                 self.updateBackground(self.conditions_desc);
             }
         });
     };
 
+    /**
+     * displays current location
+     * @param loc
+     */
     this.displayLocation = function(loc) {
         var loc_h2 = $('<h2>', {
             text: loc,
@@ -46,6 +65,10 @@ var Local_Weather_app = function(key) {
         $('#location').append(loc_h2);
     };
 
+    /**
+     * displays weather information
+     * @param data
+     */
     this.displayWeather = function(data) {
         self.temperature = data.main.temp;
         self.conditions_desc = data.weather[0].description;
@@ -63,22 +86,40 @@ var Local_Weather_app = function(key) {
         $('#winds .speed').text(wind_speed + ' ' + 'knots');
     };
 
+    /**
+     * function for converting Kelvins to fahrenheit
+     * @param kelvin
+     * @returns {string}
+     */
     this.convertKelvToFahr = function(kelvin) {
         return Math.round(1.8 * (parseInt(kelvin) - 273) + 32) + ' ' + 'F';
     };
 
+    /**
+     * function for converting Kelvins to celcius
+     * @param kelvin
+     * @returns {string}
+     */
     this.convertKelvToCelc = function(kelvin) {
         return parseInt(kelvin) - 273 + ' ' + 'C';
     };
 
+    /**
+     * function for converting wind degree to compass direction
+     * @param deg
+     * @returns {string}
+     */
     this.convertWindDirection = function(deg) {
         var val = parseInt((deg / 22.5) + 0.5),
             dirArray = ['N', 'NNE', 'NE', 'ENE', 'E', 'ESE', 'SE', 'SSE', 'S', 'SSW', 'SW', 'WSW', 'W', 'WNW', 'NW', 'NNW'];
         return dirArray[val % 16];
     };
 
+    /**
+     * function for changing the app background depending on weather description data
+     * @param cond
+     */
     this.updateBackground = function(cond) {
-        console.log(cond);
         var $appBg = $('#background');
         if (cond === 'clear sky') {
             $appBg.addClass('clear_bg');
@@ -100,29 +141,36 @@ var Local_Weather_app = function(key) {
         }
     };
 
+    /**
+     * function for toggling the temperature metric on click
+     */
     this.toggleTempMetric = function() {
-    var $temp = $('.temperature');
+        var $temp = $('.temperature');
 
-    if ($temp.hasClass('F')) {
-        $temp.removeClass('F');
-        $temp.text(this.convertKelvToCelc(this.temperature));
-        $temp.addClass('C');
+        if ($temp.hasClass('F')) {
+            $temp.removeClass('F');
+            $temp.text(this.convertKelvToCelc(this.temperature));
+            $temp.addClass('C');
+        }
+        else {
+            $temp.removeClass('C');
+            $temp.text(this.convertKelvToFahr(this.temperature));
+            $temp.addClass('F');
+        }
     }
-    else {
-        $temp.removeClass('C');
-        $temp.text(this.convertKelvToFahr(this.temperature));
-        $temp.addClass('F');
-    }
-}
 
 };
 
+/**
+ *  when the document is finished loading function
+ */
 $(document).ready(function() {
     var key = null;
+    var app = new Local_Weather_app();
+
     $.getJSON('config.json', function(data){
         key = data.weatherAppKey;
-        var app = new Local_Weather_app(key);
-        app.init();
+        app.init(key);
     });
 
     $('#toggle_temp').on('click', function () {

@@ -1,9 +1,10 @@
 body {
     color: gainsboro;
+    height: 100vh;
 }
 
 .container {
-    height: 100vh;
+    height: 100%;
 }
 
 .transparent {
@@ -75,12 +76,12 @@ body {
 #weather_info {
     margin: 1em auto 0;
     max-width: 800px;
-    padding: 3em;
+    padding: 2em;
     border-radius: 15px;
 }
 
 #weather_info > div > div {
-    padding: 1em 0;
+    padding: 3% 0;
 }
 
 #location h2 {
@@ -96,6 +97,11 @@ body {
 
 #weather .icon {
     margin-right: 10px;
+}
+
+#weather .icon img {
+    height: 5.5em;
+    margin-bottom: 3em;
 }
 
 #conditions, #winds {
