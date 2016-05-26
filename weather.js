@@ -4,31 +4,6 @@ var longitude;
 var temperature = null;
 var conditions_desc = null;
 
-var msg = 'Sorry, we were unable to get your location';
-
-function getCoords() {
-    if (Modernizr.geolocation) {
-        navigator.geolocation.getCurrentPosition(locSuccess, locFail);
-    }
-    else {
-        weather_info.empty().text(msg);
-    }
-}
-
-function locSuccess(position) {
-    latitude = position.coords.latitude;
-    console.log(latitude);
-    longitude = position.coords.longitude;
-    console.log(longitude);
-    getCoordsDetails();
-    getWeather();
-}
-
-function locFail(msg) {
-    console.log(msg.code);
-}
-
-
 function displayWeather(data) {
     temperature = data.main.temp;
     conditions_desc = data.weather[0].description;
@@ -56,19 +31,14 @@ function displayLocation(location) {
 
 
 function getCoordsDetails() {
-    var mapsKey = 'AIzaSyBGhh5LPrtzsHP-WKreyAU6aLlr0mMtXcg';
-    $.ajax({
-        url: 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' + latitude + ',' + longitude + '&key=' + mapsKey,
-        method: 'POST',
-        success: function (response) {
-            console.log(response);
-            var loc_city = response.results[0].address_components[3].long_name;
-            var loc_state = response.results[0].address_components[5].short_name;
-            //console.log('loc_city ', loc_city);
-            //console.log('state_city ', loc_state);
-            var location = loc_city + ', ' + loc_state;
-            displayLocation(location);
-        }
+    $.getJSON('http://ipinfo.io', function(data){
+        var loc_city = data.city;
+        var loc_state = data.region;
+        var loc_array = data.loc.split(',');
+        latitude = loc_array[0];
+        longitude = loc_array[1];
+        getWeather();
+        displayLocation( loc_city + ', ' + loc_state);
     });
 }
 
@@ -145,7 +115,7 @@ function updateBackground(cond) {
 
 
 $(document).ready(function () {
-    getCoords();
+    getCoordsDetails();
 
     $('#toggle_temp').on('click', function () {
         toggleTempMetric();
